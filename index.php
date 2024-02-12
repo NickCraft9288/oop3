@@ -3,45 +3,89 @@
 <body>
 
 <?php
-function toonRechthoek($breedte, $hoogte, $kleur) {
-    echo '<svg width="' . $breedte . '" height="' . $hoogte . '" xmlns="http://www.w3.org/2000/svg">';
-    echo '<rect width="' . $breedte . '" height="' . $hoogte . '" fill="' . $kleur . '" stroke="black" stroke-width="4" />';
-    echo '</svg>';
+
+class Shape {
+    protected $color;
+    
+    public function __construct($color) {
+        $this->color = $color;
+    }
 }
 
-function toonCirkel($straal, $kleur) {
-    echo '<svg height="' . ($straal * 2) . '" width="' . ($straal * 2) . '" xmlns="http://www.w3.org/2000/svg">';
-    echo '<circle r="' . $straal . '" cx="' . $straal . '" cy="' . $straal . '" stroke="black" stroke-width="3" fill="' . $kleur . '" />';
-    echo '</svg>';
+class Rectangle extends Shape {
+    protected $width;
+    protected $height;
+    
+    public function __construct($width, $height, $color) {
+        parent::__construct($color);
+        $this->width = $width;
+        $this->height = $height;
+    }
+    
+    public function draw() {
+        echo '<svg width="' . $this->width . '" height="' . $this->height . '" xmlns="http://www.w3.org/2000/svg">';
+        echo '<rect width="' . $this->width . '" height="' . $this->height . '" fill="' . $this->color . '" stroke="black" stroke-width="4" />';
+        echo '</svg>';
+    }
 }
 
-function toonRechthoekLang($breedte, $hoogte, $kleur) {
-    echo '<svg width="' . $breedte . '" height="' . $hoogte . '" xmlns="http://www.w3.org/2000/svg">';
-    echo '<rect width="' . $breedte . '" height="' . $hoogte . '" stroke="black" stroke-width="3" fill="' . $kleur . '" />';
-    echo '</svg>';
+class Circle extends Shape {
+    protected $radius;
+    
+    public function __construct($radius, $color) {
+        parent::__construct($color);
+        $this->radius = $radius;
+    }
+    
+    public function draw() {
+        echo '<svg height="' . ($this->radius * 2) . '" width="' . ($this->radius * 2) . '" xmlns="http://www.w3.org/2000/svg">';
+        echo '<circle r="' . $this->radius . '" cx="' . $this->radius . '" cy="' . $this->radius . '" stroke="black" stroke-width="3" fill="' . $this->color . '" />';
+        echo '</svg>';
+    }
 }
 
-function toonDriehoek($kleur) {
-    echo '<svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">';
-    echo '<polygon points="50,1 -20,200 120,190" stroke="black" stroke-width="3" fill="' . $kleur . '" />';
-    echo '</svg>';
+class Triangle extends Shape {
+    public function draw() {
+        echo '<svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">';
+        echo '<polygon points="50,1 -20,200 120,190" stroke="black" stroke-width="3" fill="' . $this->color . '" />';
+        echo '</svg>';
+    }
 }
+// Voorbeeld van het gebruik van de klassen:
 
-toonRechthoek(100, 100, "cyan");
-toonRechthoek(100, 100, "blue");
-toonRechthoek(100, 100, "green");
+$rectangle1 = new Rectangle(100, 100, "cyan");
+$rectangle2 = new Rectangle(100, 100, "blue");
+$rectangle3 = new Rectangle(100, 100, "green");
+
+$circle1 = new Circle(45, "cyan");
+$circle2 = new Circle(45, "blue");
+$circle3 = new Circle(45, "green");
+
+$rectangleLong1 = new Rectangle(100, 50, "cyan");
+$rectangleLong2 = new Rectangle(100, 50, "blue");
+$rectangleLong3 = new Rectangle(100, 50, "green");
+
+$triangle1 = new Triangle("cyan");
+$triangle2 = new Triangle("blue");
+$triangle3 = new Triangle("green");
+
+// Weergave van de vormen
+$rectangle1->draw();
+$rectangle2->draw();
+$rectangle3->draw();
 echo '<br>';
-toonCirkel(45, "cyan");
-toonCirkel(45, "blue");
-toonCirkel(45, "green");
+$circle1->draw();
+$circle2->draw();
+$circle3->draw();
 echo '<br>';
-toonRechthoekLang(100, 50, "cyan");
-toonRechthoekLang(100, 50, "blue");
-toonRechthoekLang(100, 50, "green");
+$rectangleLong1->draw();
+$rectangleLong2->draw();
+$rectangleLong3->draw();
 echo '<br>';
-toonDriehoek("cyan");
-toonDriehoek("blue");
-toonDriehoek("green");
+$triangle1->draw();
+$triangle2->draw();
+$triangle3->draw();
+
 ?>
 
 </body>
